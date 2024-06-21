@@ -1,3 +1,5 @@
+// todo **`` Create a new branch each week!!
+
 import "./App.css";
 
 const todoList = [
@@ -11,8 +13,8 @@ function App() {
     <>
       <h1>Todo List</h1>
       <ul>
-        {todoList.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
+        {todoList.map(({ id, title }) => (
+          <li key={id}>{title}</li>
         ))}
       </ul>
     </>
