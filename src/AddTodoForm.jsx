@@ -1,5 +1,3 @@
-/* eslint react/prop-types: "off" */
-
 export default function AddTodoForm({ onAddTodo }) {
   function handleAddTodo(event) {
     event.preventDefault();
