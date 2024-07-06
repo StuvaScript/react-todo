@@ -1,11 +1,11 @@
 export default function AddTodoForm({ onAddTodo }) {
-  function handleAddTodo(event) {
+  const handleAddTodo = (event) => {
     event.preventDefault();
-    let todoTitle = event.target.title.value;
+    const todoTitle = event.target.title.value;
     console.log(todoTitle);
     onAddTodo(todoTitle);
     event.target.title.value = "";
-  }
+  };
 
   return (
     <form onSubmit={handleAddTodo}>
