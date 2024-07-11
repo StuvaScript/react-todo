@@ -1,12 +1,6 @@
 import TodoListItem from "./TodoListItem";
 
-const todoList = [
-  { id: 1, title: "Go to store" },
-  { id: 2, title: "Read book" },
-  { id: 3, title: "Buy a monkey" },
-];
-
-export default function TodoList() {
+export default function TodoList({ todoList }) {
   return (
     <ul>
       {todoList.map(({ id, title }) => (
