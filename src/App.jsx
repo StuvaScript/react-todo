@@ -4,9 +4,14 @@ import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 
 const useSemiPersistentState = () => {
-  const [todoList, setTodoList] = useState(
-    JSON.parse(localStorage.getItem("savedTodoList")) || []
-  );
+  const [todoList, setTodoList] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("savedTodoList")) || [];
+    } catch (e) {
+      console.error("Failed to parse 'savedTodoList'", e);
+      return [];
+    }
+  });
 
   useEffect(() => {
     localStorage.setItem("savedTodoList", JSON.stringify(todoList));
