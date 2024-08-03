@@ -3,25 +3,37 @@ import "./App.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 
-const useSemiPersistentState = () => {
-  const [todoList, setTodoList] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem("savedTodoList")) || [];
-    } catch (e) {
-      console.error("Failed to parse 'savedTodoList'", e);
-      return [];
-    }
-  });
-
-  useEffect(() => {
-    localStorage.setItem("savedTodoList", JSON.stringify(todoList));
-  }, [todoList]);
-
-  return [todoList, setTodoList];
-};
+const savedTodoList = "savedTodoList";
 
 function App() {
-  const [todoList, setTodoList] = useSemiPersistentState();
+  const [todoList, setTodoList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          data: {
+            todoList: () => {
+              try {
+                return JSON.parse(localStorage.getItem(savedTodoList)) || [];
+              } catch (e) {
+                console.error(`Failed to parse ${savedTodoList}`, e);
+                return [];
+              }
+            },
+          },
+        });
+      }, 2000);
+    }).then((result) => {
+      setTodoList(result.data.todoList);
+      setIsLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    !isLoading && localStorage.setItem(savedTodoList, JSON.stringify(todoList));
+  }, [todoList]);
 
   const addTodo = (newTodo) => setTodoList([...todoList, newTodo]);
 
@@ -35,7 +47,11 @@ function App() {
     <>
       <h1>Todo List</h1>
       <AddTodoForm onAddTodo={addTodo} />
-      <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+      )}
     </>
   );
 }
