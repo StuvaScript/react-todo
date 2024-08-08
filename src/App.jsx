@@ -33,7 +33,7 @@ function App() {
 
   useEffect(() => {
     !isLoading && localStorage.setItem(savedTodoList, JSON.stringify(todoList));
-  }, [todoList]);
+  }, [isLoading, todoList]);
 
   const addTodo = (newTodo) => setTodoList([...todoList, newTodo]);
 
