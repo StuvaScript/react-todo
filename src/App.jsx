@@ -86,11 +86,14 @@ function App() {
   }, [isLoading, todoList]);
 
   const addTodo = async (newTodo) => {
-    const res = await postTodo(newTodo);
+    setTodoList([...todoList, newTodo]);
+
+    const res = await postTodo(newTodo.title);
     if (!res) {
+      removeTodo(newTodo.id);
       return;
     }
-    const newTodoObject = { id: res.id, title: res.fields.title };
+    const newTodoObject = { title: res.fields.title, id: res.id };
 
     setTodoList([...todoList, newTodoObject]);
   };

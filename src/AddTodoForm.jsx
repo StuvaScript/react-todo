@@ -11,8 +11,8 @@ export default function AddTodoForm({ onAddTodo }) {
     if (todoTitle === "") {
       return;
     }
-    // onAddTodo({ title: todoTitle, id: Date.now() });
-    onAddTodo(todoTitle);
+    onAddTodo({ title: todoTitle, id: Date.now() });
+    // onAddTodo(todoTitle);
 
     setTodoTitle("");
   };
