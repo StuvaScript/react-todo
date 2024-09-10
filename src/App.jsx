@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import styles from "./App.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -112,8 +112,10 @@ function App() {
           path="/"
           element={
             <>
-              <h1>Todo List</h1>
-              <AddTodoForm onAddTodo={addTodo} />
+              <div className={styles.titleAndForm}>
+                <h1>Todo List</h1>
+                <AddTodoForm onAddTodo={addTodo} />
+              </div>
               {isLoading ? (
                 <p>Loading...</p>
               ) : (

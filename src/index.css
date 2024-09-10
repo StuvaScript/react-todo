@@ -1,4 +1,46 @@
 :root {
+  --main-color: #ffffff;
+  --secondary-color: #70fafa;
+  --accent-color: #ffd5c2;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: rgb(29, 29, 29);
+  color: var(--main-color);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 1.25rem;
+}
+
+h1 {
+  font-size: 4rem;
+}
+
+button {
+  padding: 2px 5px;
+  border-radius: 10px;
+  border: none;
+  transition: all 200ms ease-in-out;
+  background: var(--accent-color);
+}
+
+button:hover {
+  cursor: pointer;
+  scale: 1.1;
+  filter: brightness(75%);
+}
+
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -65,4 +107,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
