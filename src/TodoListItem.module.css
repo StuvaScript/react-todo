@@ -3,22 +3,27 @@
   list-style-type: none;
   width: 100%;
 
-  /* The minmax() function for the middle element (the span) is compressing the first element (the text). Need to mess with minmax so that the white line can stretch the whole way without pushing the other elements. It should only fill the remaining space. */
-
   display: grid;
-  grid-template-columns: minmax(0, auto) minmax(0, 100%) auto;
+  grid-template-columns: 1fr auto;
   gap: 20px;
   align-items: center;
+
+  > button {
+    padding: 10px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .listItem:nth-child(odd) {
-  /* border: 1px solid var(--main-color);
+  background: linear-gradient(
+    to right,
+    rgba(180, 180, 180, 0.1),
+    var(--background-color)
+  );
   border-radius: 10px;
-  padding: 0 0 0 5px; */
-}
-
-.listItem:nth-child(odd) > span {
-  height: 1px;
-  background: var(--main-color);
-  border-radius: 10px;
+  padding: 2px 0 2px 5px;
 }
