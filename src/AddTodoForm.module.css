@@ -3,6 +3,10 @@
   align-items: center;
   gap: 10px;
 
+  > label {
+    color: var(--secondary-color);
+  }
+
   > input {
     padding: 5px;
     border-radius: 10px;
