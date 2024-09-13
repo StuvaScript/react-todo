@@ -14,7 +14,6 @@ export default function AddTodoForm({ onAddTodo }) {
       return;
     }
     onAddTodo({ title: todoTitle, id: Date.now() });
-    // onAddTodo(todoTitle);
 
     setTodoTitle("");
   };

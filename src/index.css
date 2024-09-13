@@ -21,10 +21,13 @@ body {
   color: var(--main-color);
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 1.25rem;
+  padding: 20px;
 }
 
 h1 {
   font-size: 5rem;
+  /* font-size: clamp(100px, 5rem, 500px); */
+  /* font-size: clamp(2rem, 50vw, 6rem); */
 }
 
 button {
