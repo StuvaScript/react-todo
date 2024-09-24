@@ -1,0 +1,29 @@
+.listItem {
+  color: var(--secondary-color);
+  list-style-type: none;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+
+  > button {
+    padding: 10px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.listItem:nth-child(odd) {
+  background: linear-gradient(
+    to right,
+    rgba(180, 180, 180, 0.1),
+    var(--background-color)
+  );
+  border-radius: 10px;
+  padding: 2px 0 2px 5px;
+}

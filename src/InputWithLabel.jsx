@@ -7,7 +7,7 @@ export default function InputWithLabel({ children, value, handleChange }) {
 
   return (
     <>
-      <label htmlFor="todoTitle">{children} </label>
+      <label htmlFor="todoTitle">{children}</label>
       <input
         id="todoTitle"
         name="title"

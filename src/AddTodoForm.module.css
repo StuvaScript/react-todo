@@ -1,0 +1,34 @@
+.form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  > label {
+    color: var(--secondary-color);
+  }
+
+  > input {
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  > input:focus {
+    outline: 2px solid var(--secondary-color);
+  }
+
+  > button {
+    padding: 10px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (width <= 450px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+}

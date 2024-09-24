@@ -1,0 +1,35 @@
+@font-face {
+  font-family: handwritten;
+  src: url(./assets/fonts/Merienda/Merienda-VariableFont_wght.ttf);
+}
+
+:global #root {
+  height: 100vh;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  justify-items: center;
+  gap: 30px;
+}
+
+.titleAndForm {
+  align-self: end;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > h1 {
+    text-align: center;
+    font-family: handwritten;
+    font-weight: 700;
+    background: linear-gradient(
+      90deg,
+      var(--secondary-color),
+      var(--main-color),
+      var(--accent-color)
+    );
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
