@@ -1,6 +1,6 @@
 @font-face {
   font-family: handwritten;
-  src: url(./assets/fonts/Merienda/Merienda-VariableFont_wght.ttf);
+  src: url(../assets/fonts/Merienda/Merienda-VariableFont_wght.ttf);
 }
 
 :global #root {

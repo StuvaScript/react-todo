@@ -1,5 +1,6 @@
 import styles from "./TodoListItem.module.css";
-import TrashCanIcon from "./assets/icons/trash-can-icon.svg?react";
+import TrashCanIcon from "../assets/icons/trash-can-icon.svg?react";
+import PropTypes from "prop-types";
 
 export default function TodoListItem({ id, todo, onRemoveTodo }) {
   return (
@@ -11,3 +12,9 @@ export default function TodoListItem({ id, todo, onRemoveTodo }) {
     </li>
   );
 }
+
+TodoListItem.propTypes = {
+  id: PropTypes.string,
+  todo: PropTypes.string,
+  onRemoveTodo: PropTypes.func,
+};

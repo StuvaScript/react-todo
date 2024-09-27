@@ -1,7 +1,8 @@
 import { useState } from "react";
 import InputWithLabel from "./InputWithLabel";
 import styles from "./AddTodoForm.module.css";
-import AddIcon from "./assets/icons/add-icon.svg?react";
+import AddIcon from "../assets/icons/add-icon.svg?react";
+import PropTypes from "prop-types";
 
 export default function AddTodoForm({ onAddTodo }) {
   const [todoTitle, setTodoTitle] = useState("");
@@ -29,3 +30,7 @@ export default function AddTodoForm({ onAddTodo }) {
     </form>
   );
 }
+
+AddTodoForm.propTypes = {
+  onAddTodo: PropTypes.func,
+};
