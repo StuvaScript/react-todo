@@ -3,8 +3,6 @@ import styles from "./TodoContainer.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 
-const savedTodoList = "savedTodoList";
-
 export default function TodoContainer() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -54,7 +52,10 @@ export default function TodoContainer() {
     };
 
     try {
-      const res = await fetch(url, options);
+      const res = await fetch(
+        `${url}?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`,
+        options
+      );
 
       if (!res.ok) {
         const message = `Error: ${res.status}`;
@@ -62,7 +63,12 @@ export default function TodoContainer() {
       }
 
       const data = await res.json();
-      const todos = data.records.map((todoObject) => {
+
+      const sortedData = data.records.sort((a, b) =>
+        a.fields.title.toLowerCase() > b.fields.title.toLowerCase() ? 1 : -1
+      );
+
+      const todos = sortedData.map((todoObject) => {
         const todo = {
           title: todoObject.fields.title,
           id: todoObject.id,
@@ -82,7 +88,8 @@ export default function TodoContainer() {
   }, []);
 
   useEffect(() => {
-    !isLoading && localStorage.setItem(savedTodoList, JSON.stringify(todoList));
+    !isLoading &&
+      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
   }, [isLoading, todoList]);
 
   const addTodo = async (newTodo) => {
