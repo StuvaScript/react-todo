@@ -106,7 +106,7 @@ export default function TodoContainer() {
   };
 
   const removeTodo = (id) => {
-    const newLIst = todoList.filter((item) => item.id !== id);
+    const newLIst = todoList.filter((todoItem) => todoItem.id !== id);
 
     setTodoList(newLIst);
   };
