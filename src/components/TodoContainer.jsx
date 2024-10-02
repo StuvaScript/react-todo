@@ -11,6 +11,30 @@ export default function TodoContainer() {
     import.meta.env.VITE_AIRTABLE_BASE_ID
   }/${import.meta.env.VITE_TABLE_NAME}`;
 
+  const deleteTodo = async (id) => {
+    try {
+      const options = {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+        },
+      };
+
+      const res = await fetch(`${url}/${id}`, options);
+
+      if (!res.ok) {
+        const message = `Error: ${res.status}`;
+        throw new Error(message);
+      }
+
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.log(error.message);
+      return null;
+    }
+  };
+
   const postTodo = async (todo) => {
     try {
       const airtableData = {
@@ -52,10 +76,7 @@ export default function TodoContainer() {
     };
 
     try {
-      const res = await fetch(
-        `${url}?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`,
-        options
-      );
+      const res = await fetch(url, options);
 
       if (!res.ok) {
         const message = `Error: ${res.status}`;
@@ -64,11 +85,7 @@ export default function TodoContainer() {
 
       const data = await res.json();
 
-      const sortedData = data.records.sort((a, b) =>
-        a.fields.title.toLowerCase() > b.fields.title.toLowerCase() ? 1 : -1
-      );
-
-      const todos = sortedData.map((todoObject) => {
+      const todos = data.records.map((todoObject) => {
         const todo = {
           title: todoObject.fields.title,
           id: todoObject.id,
@@ -105,11 +122,18 @@ export default function TodoContainer() {
     setTodoList([...todoList, newTodoObject]);
   };
 
-  const removeTodo = (id) => {
-    const newLIst = todoList.filter((todoItem) => todoItem.id !== id);
+  const removeTodo = async (id) => {
+    const oldList = todoList;
 
+    const newLIst = todoList.filter((todoItem) => todoItem.id !== id);
     setTodoList(newLIst);
+
+    const deleteRes = await deleteTodo(id);
+    if (deleteRes === null) {
+      setTodoList(oldList);
+    }
   };
+
   return (
     <>
       <div className={styles.titleAndForm}>

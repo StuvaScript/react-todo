@@ -1,6 +1,6 @@
 `** TODO **`
 
-Make the delete button actually delete the item in the airtable app
+<!-- Make the delete button actually delete the item in the airtable app -->
 
 Add different sort buttons
 
@@ -15,3 +15,5 @@ When you add a todo, make it auto sort
 Give a smaller scale when you click a button
 
 Add Prop Types to the TodoContainer.jsx
+
+Move API requests to their own file
