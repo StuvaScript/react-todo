@@ -1,8 +1,17 @@
-# React + Vite
+`** TODO **`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Make the delete button actually delete the item in the airtable app
 
-Currently, two official plugins are available:
+Add different sort buttons
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Sort by created time
+
+Add an up or down arrow on the sort buttons
+
+Or make a dropdown list for sorting options
+
+When you add a todo, make it auto sort
+
+Give a smaller scale when you click a button
+
+Add Prop Types to the TodoContainer.jsx
