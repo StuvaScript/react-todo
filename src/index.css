@@ -42,4 +42,8 @@ button {
     scale: 1.1;
     filter: brightness(75%);
   }
+
+  &:active {
+    scale: 0.9;
+  }
 }

@@ -16,10 +16,12 @@ Add a down chevron instead of a colon after "Sort by"
 
 Have the sort type remembered in the local storage
 
-Give a smaller scale when you click a button or sort type
+<!-- Give a smaller scale when you click a button or sort type -->
 
 Add Prop Types to the TodoContainer.jsx
 
-Move API requests to their own file
+<!-- Move API requests to their own file -->
 
 Make accessible with tab index and aria read and aria hidden when not visible
+
+Organize files by Component, style, and functions? All in larger component files?
