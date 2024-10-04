@@ -9,6 +9,7 @@ const SORTS = {
     todoList.sort((a, b) =>
       a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
     ),
+  DATE: (todoList) => todoList,
 };
 
 export default function TodoList({ todoList, onRemoveTodo }) {
@@ -28,11 +29,26 @@ export default function TodoList({ todoList, onRemoveTodo }) {
     ? sortFunction(todoList).reverse()
     : sortFunction(todoList);
 
+  const sortByOptions = [
+    { innerText: "Title", value: "TITLE" },
+    { innerText: "Created Date", value: "DATE" },
+  ];
+
   return (
     <>
-      <div>
-        <span>Sort by: </span>
-        <button onClick={() => handleSort("TITLE")}>title</button>
+      <div className={styles.dropDownContainer}>
+        <div className={styles.dropDownTarget}>
+          Sort by:
+          <div className={styles.dropDownBox}>
+            <ul className={styles.dropDownList}>
+              {sortByOptions.map(({ innerText, value }) => (
+                <li key={value} onClick={() => handleSort(value)}>
+                  {innerText}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
 
       <ul className={styles.unorderedList}>

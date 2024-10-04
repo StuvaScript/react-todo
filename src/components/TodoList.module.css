@@ -6,3 +6,52 @@
   gap: 10px;
   padding-bottom: 50px;
 }
+
+.dropDownContainer {
+  width: clamp(300px, 50vw, 700px);
+}
+
+/** ``** CUSTOM DROPDOWN MENU **`` */
+.dropDownTarget {
+  position: relative;
+  width: max-content;
+
+  &:hover > .dropDownBox {
+    opacity: 1;
+    pointer-events: initial;
+  }
+}
+
+.dropDownBox {
+  transition: opacity 300ms ease-in-out;
+  position: absolute;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  width: max-content;
+
+  background: var(--accent-color);
+  color: var(--background-color);
+  top: 0;
+  left: 100%;
+  line-height: 1.5rem;
+  border-radius: 5px;
+  box-shadow: 2px 2px 15px rgb(2, 2, 2);
+}
+
+.dropDownList {
+  padding: 5px;
+
+  > li {
+    list-style-type: none;
+    padding: 0 5px;
+
+    &:hover {
+      background: var(--accent-color);
+      filter: brightness(75%);
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+}
+/* ********************************** */
