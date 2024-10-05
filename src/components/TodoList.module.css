@@ -7,19 +7,37 @@
   padding-bottom: 50px;
 }
 
+/** ``** CUSTOM DROPDOWN MENU **`` */
 .dropDownContainer {
   width: clamp(300px, 50vw, 700px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/** ``** CUSTOM DROPDOWN MENU **`` */
 .dropDownTarget {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 5px;
+  padding: 2px 5px;
   width: max-content;
+  background: var(--accent-color);
+  color: var(--background-color);
 
-  &:hover > .dropDownBox {
+  &:hover .dropDownBox {
     opacity: 1;
     pointer-events: initial;
   }
+}
+
+.sortDisplayValue {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--main-color);
 }
 
 .dropDownBox {
@@ -45,6 +63,9 @@
   > li {
     list-style-type: none;
     padding: 0 5px;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
 
     &:hover {
       background: var(--accent-color);

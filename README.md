@@ -6,15 +6,15 @@
 
 Sort by created time
 
-Add an up or down arrow on the sort buttons
+<!-- Add an up or down arrow on the sort buttons -->
 
-Add a down chevron instead of a colon after "Sort by"
+<!-- Add a down chevron instead of a colon after "Sort by" -->
 
 <!-- Or make a dropdown list for sorting options -->
 
 <!-- When you add a todo, make it auto sort -->
 
-Have the sort type remembered in the local storage
+Have the sort type remembered in the local storage or have default sort be Created By date
 
 <!-- Give a smaller scale when you click a button or sort type -->
 
@@ -24,4 +24,6 @@ Add Prop Types to the TodoContainer.jsx
 
 Make accessible with tab index and aria read and aria hidden when not visible
 
-Organize files by Component, style, and functions? All in larger component files?
+<!-- Organize files by Component, style, and functions? All in larger component files? -->
+
+Add comments to all functions
