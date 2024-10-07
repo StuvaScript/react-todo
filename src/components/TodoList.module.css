@@ -8,6 +8,7 @@
 }
 
 .sortDisplayValue {
+  font-size: 1rem;
   display: flex;
   width: max-content;
   align-items: center;
@@ -20,7 +21,7 @@
   width: clamp(300px, 50vw, 700px);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .dropDownTarget {

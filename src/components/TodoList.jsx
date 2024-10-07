@@ -73,17 +73,14 @@ export default function TodoList({ todoList, onRemoveTodo }) {
       </div>
 
       <ul className={styles.unorderedList}>
-        {sortedList.map(
-          ({ id, title }) =>
-            console.log(title, id) || (
-              <TodoListItem
-                key={id}
-                todo={title}
-                id={id}
-                onRemoveTodo={onRemoveTodo}
-              />
-            )
-        )}
+        {sortedList.map(({ id, title }) => (
+          <TodoListItem
+            key={id}
+            todo={title}
+            id={id}
+            onRemoveTodo={onRemoveTodo}
+          />
+        ))}
       </ul>
     </>
   );

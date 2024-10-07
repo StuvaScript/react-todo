@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./TodoContainer.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
@@ -67,7 +67,7 @@ export default function TodoContainer() {
     }
   };
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     const options = {
       method: "GET",
       headers: {
@@ -99,11 +99,11 @@ export default function TodoContainer() {
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }, [url]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   useEffect(() => {
     !isLoading &&
@@ -114,7 +114,6 @@ export default function TodoContainer() {
     setTodoList([...todoList, newTodo]);
 
     const res = await postTodo(newTodo.title);
-    console.log(res.createdTime);
     if (!res) {
       removeTodo(newTodo.id);
       return;
