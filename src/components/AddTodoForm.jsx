@@ -14,7 +14,11 @@ export default function AddTodoForm({ onAddTodo }) {
     if (todoTitle === "") {
       return;
     }
-    onAddTodo({ title: todoTitle.trim(), id: Date.now().toString() });
+    onAddTodo({
+      title: todoTitle.trim(),
+      id: Date.now().toString(),
+      createdTime: new Date(),
+    });
 
     setTodoTitle("");
   };

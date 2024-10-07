@@ -89,6 +89,7 @@ export default function TodoContainer() {
         const todo = {
           title: todoObject.fields.title,
           id: todoObject.id,
+          createdTime: todoObject.createdTime,
         };
         return todo;
       });
@@ -113,11 +114,16 @@ export default function TodoContainer() {
     setTodoList([...todoList, newTodo]);
 
     const res = await postTodo(newTodo.title);
+    console.log(res.createdTime);
     if (!res) {
       removeTodo(newTodo.id);
       return;
     }
-    const newTodoObject = { title: res.fields.title, id: res.id };
+    const newTodoObject = {
+      title: newTodo.title,
+      id: res.id,
+      createdTime: newTodo.createdTime,
+    };
 
     setTodoList([...todoList, newTodoObject]);
   };

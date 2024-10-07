@@ -7,6 +7,14 @@
   padding-bottom: 50px;
 }
 
+.sortDisplayValue {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--main-color);
+}
+
 /** ``** CUSTOM DROPDOWN MENU **`` */
 .dropDownContainer {
   width: clamp(300px, 50vw, 700px);
@@ -30,14 +38,6 @@
     opacity: 1;
     pointer-events: initial;
   }
-}
-
-.sortDisplayValue {
-  display: flex;
-  width: max-content;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--main-color);
 }
 
 .dropDownBox {

@@ -4,7 +4,7 @@
 
 <!-- Add different sort buttons -->
 
-Sort by created time
+<!-- Sort by created time -->
 
 <!-- Add an up or down arrow on the sort buttons -->
 
@@ -14,7 +14,7 @@ Sort by created time
 
 <!-- When you add a todo, make it auto sort -->
 
-Have the sort type remembered in the local storage or have default sort be Created By date
+<!-- Have the sort type remembered in the local storage or have default sort be Created By date -->
 
 <!-- Give a smaller scale when you click a button or sort type -->
 
@@ -27,3 +27,5 @@ Make accessible with tab index and aria read and aria hidden when not visible
 <!-- Organize files by Component, style, and functions? All in larger component files? -->
 
 Add comments to all functions
+
+Write a better README.md

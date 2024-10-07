@@ -6,17 +6,17 @@ import UpArrowIcon from "../assets/icons/up-arrow-icon.svg?react";
 import DownArrowIcon from "../assets/icons/down-arrow-icon.svg?react";
 
 const SORTS = {
-  // NONE: (todoList) => todoList,
   TITLE: (todoList) =>
     todoList.sort((a, b) =>
       a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1
     ),
-  DATE: (todoList) => todoList,
+  CREATED: (todoList) =>
+    todoList.sort((a, b) => (a.createdTime > b.createdTime ? 1 : -1)),
 };
 
 export default function TodoList({ todoList, onRemoveTodo }) {
   const [sort, setSort] = useState({
-    sortKey: "TITLE",
+    sortKey: "CREATED",
     isReverse: false,
   });
 
@@ -33,7 +33,7 @@ export default function TodoList({ todoList, onRemoveTodo }) {
 
   const sortByOptions = [
     { innerText: "Title", value: "TITLE" },
-    { innerText: "Created Date", value: "DATE" },
+    { innerText: "Created Time", value: "CREATED" },
   ];
 
   const sortValue = sortByOptions.filter(
@@ -73,14 +73,17 @@ export default function TodoList({ todoList, onRemoveTodo }) {
       </div>
 
       <ul className={styles.unorderedList}>
-        {sortedList.map(({ id, title }) => (
-          <TodoListItem
-            key={id}
-            todo={title}
-            id={id}
-            onRemoveTodo={onRemoveTodo}
-          />
-        ))}
+        {sortedList.map(
+          ({ id, title }) =>
+            console.log(title, id) || (
+              <TodoListItem
+                key={id}
+                todo={title}
+                id={id}
+                onRemoveTodo={onRemoveTodo}
+              />
+            )
+        )}
       </ul>
     </>
   );
