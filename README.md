@@ -18,7 +18,9 @@
 
 <!-- Give a smaller scale when you click a button or sort type -->
 
-Add Prop Types to the TodoContainer.jsx
+<!-- Add Prop Types to the TodoContainer.jsx -->
+
+The variable isReverse stays in it's direction when choosing a new sort pattern. Fix this to make it ascending when switching to new sort pattern.
 
 <!-- Move API requests to their own file -->
 

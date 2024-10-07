@@ -1,0 +1,12 @@
+.label {
+  color: var(--secondary-color);
+}
+
+.input {
+  padding: 5px;
+  border-radius: 10px;
+
+  &:focus {
+    outline: 2px solid var(--secondary-color);
+  }
+}

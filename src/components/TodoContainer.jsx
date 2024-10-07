@@ -2,14 +2,15 @@ import { useCallback, useEffect, useState } from "react";
 import styles from "./TodoContainer.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
+import PropTypes from "prop-types";
 
-export default function TodoContainer() {
+export default function TodoContainer({ tableName }) {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const url = `https://api.airtable.com/v0/${
     import.meta.env.VITE_AIRTABLE_BASE_ID
-  }/${import.meta.env.VITE_TABLE_NAME}`;
+  }/${tableName}`;
 
   const deleteTodo = async (id) => {
     try {
@@ -67,6 +68,40 @@ export default function TodoContainer() {
     }
   };
 
+  // const fetchData = useCallback(async () => {
+  //   const options = {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+  //     },
+  //   };
+
+  //   try {
+  //     const res = await fetch(url, options);
+
+  //     if (!res.ok) {
+  //       const message = `Error: ${res.status}`;
+  //       throw new Error(message);
+  //     }
+
+  //     const data = await res.json();
+
+  //     const todos = data.records.map((todoObject) => {
+  //       const todo = {
+  //         title: todoObject.fields.title,
+  //         id: todoObject.id,
+  //         createdTime: todoObject.createdTime,
+  //       };
+  //       return todo;
+  //     });
+
+  //     setTodoList(todos);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }, [url]);
+
   const fetchData = useCallback(async () => {
     const options = {
       method: "GET",
@@ -94,16 +129,17 @@ export default function TodoContainer() {
         return todo;
       });
 
-      setTodoList(todos);
-      setIsLoading(false);
+      return todos;
     } catch (error) {
       console.log(error.message);
     }
   }, [url]);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetchData()
+      .then((value) => setTodoList(value))
+      .then(() => setIsLoading(false));
+  }, [fetchData, tableName]);
 
   useEffect(() => {
     !isLoading &&
@@ -118,10 +154,10 @@ export default function TodoContainer() {
       removeTodo(newTodo.id);
       return;
     }
+
     const newTodoObject = {
-      title: newTodo.title,
+      ...newTodo,
       id: res.id,
-      createdTime: newTodo.createdTime,
     };
 
     setTodoList([...todoList, newTodoObject]);
@@ -153,3 +189,7 @@ export default function TodoContainer() {
     </>
   );
 }
+
+TodoContainer.propTypes = {
+  tableName: PropTypes.string,
+};
