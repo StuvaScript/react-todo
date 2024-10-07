@@ -14,6 +14,13 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--main-color);
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+  }
 }
 
 /** ``** CUSTOM DROPDOWN MENU **`` */

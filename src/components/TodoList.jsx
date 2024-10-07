@@ -20,11 +20,9 @@ export default function TodoList({ todoList, onRemoveTodo }) {
     isReverse: false,
   });
 
-  const handleSort = (sortKey) => {
-    const isReverse = sort.sortKey === sortKey && !sort.isReverse;
+  const handleSort = (sortKey) => setSort({ ...sort, sortKey });
 
-    setSort({ sortKey, isReverse });
-  };
+  const handleReverse = () => setSort({ ...sort, isReverse: !sort.isReverse });
 
   const sortFunction = SORTS[sort.sortKey];
   const sortedList = sort.isReverse
@@ -51,24 +49,21 @@ export default function TodoList({ todoList, onRemoveTodo }) {
               {sortByOptions.map(({ innerText, value }) => (
                 <li key={value} onClick={() => handleSort(value)}>
                   {innerText}
-                  {sort.sortKey === value && !sort.isReverse ? (
-                    <UpArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
-                  ) : (
-                    <DownArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
-                  )}
                 </li>
               ))}
             </ul>
           </div>
         </div>
 
-        <span className={styles.sortDisplayValue}>
+        <span className={styles.sortDisplayValue} onClick={handleReverse}>
           {sortValue}
-          {sort.isReverse ? (
-            <UpArrowIcon height="1rem" width="1rem" fill="#fff" />
-          ) : (
-            <DownArrowIcon height="1rem" width="1rem" fill="#fff" />
-          )}
+          <button>
+            {sort.isReverse ? (
+              <UpArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
+            ) : (
+              <DownArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
+            )}
+          </button>
         </span>
       </div>
 
