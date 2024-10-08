@@ -14,17 +14,24 @@ export default function AddTodoForm({ onAddTodo }) {
     if (todoTitle === "") {
       return;
     }
-    onAddTodo({ title: todoTitle.trim(), id: Date.now().toString() });
+    onAddTodo({
+      title: todoTitle.trim(),
+      createdTime: new Date().toString(),
+      id: Date.now().toString(),
+    });
 
     setTodoTitle("");
   };
 
   return (
     <form onSubmit={handleAddTodo} className={styles.form}>
-      <InputWithLabel value={todoTitle} handleChange={handleTitleChange}>
+      <InputWithLabel
+        todoTitle={todoTitle}
+        handleTitleChange={handleTitleChange}
+      >
         Title:
       </InputWithLabel>
-      <button>
+      <button type="submit">
         <AddIcon height="20px" width="20px" />
       </button>
     </form>

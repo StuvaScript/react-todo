@@ -1,0 +1,15 @@
+.nav {
+  display: flex;
+  gap: 10px;
+
+  a {
+    text-decoration: none;
+  }
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: var(--background-color);
+  }
+}
