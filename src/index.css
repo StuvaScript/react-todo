@@ -26,8 +26,17 @@ body {
 
 h1 {
   font-size: 5rem;
-  /* font-size: clamp(100px, 5rem, 500px); */
-  /* font-size: clamp(2rem, 50vw, 6rem); */
+  text-align: center;
+  font-family: handwritten;
+  font-weight: 700;
+  background: linear-gradient(
+    90deg,
+    var(--secondary-color),
+    var(--main-color),
+    var(--accent-color)
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 button {

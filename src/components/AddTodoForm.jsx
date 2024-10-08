@@ -16,7 +16,6 @@ export default function AddTodoForm({ onAddTodo }) {
     }
     onAddTodo({
       title: todoTitle.trim(),
-      id: Date.now().toString(),
       createdTime: new Date().toString(),
     });
 

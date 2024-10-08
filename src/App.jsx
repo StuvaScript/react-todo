@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import TodoContainer from "./components/TodoContainer";
+import Navigation from "./components/Navigation";
 
-function App() {
+export default function App() {
   return (
     <Router>
+      <Navigation />
       <Routes>
         <Route
           path="/"
@@ -11,11 +13,8 @@ function App() {
             <TodoContainer tableName={import.meta.env.VITE_TABLE_NAME} />
           }
         />
-        {/* The route below was required in the homework but was never touched upon what to do with it */}
         <Route path="/new" element={<h1>New Todo List</h1>} />
       </Routes>
     </Router>
   );
 }
-
-export default App;

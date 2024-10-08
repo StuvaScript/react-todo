@@ -1,5 +1,9 @@
 `** TODO **`
 
+Add todos too quick doesn't allow them to be deleted for some reason
+
+On horizontal mobile view, deleting todos jumps the page to the top for some reason
+
 <!-- The variable isReverse stays in it's direction when choosing a new sort pattern. Fix this to make it ascending when switching to new sort pattern. -->
 
 <!-- Move API requests to their own file -->
