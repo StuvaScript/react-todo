@@ -29,12 +29,12 @@ export default function TodoList({ todoList, onRemoveTodo }) {
     ? sortFunction(todoList).reverse()
     : sortFunction(todoList);
 
-  const sortByOptions = [
+  const sortOptions = [
     { innerText: "Title", value: "TITLE" },
     { innerText: "Created Time", value: "CREATED" },
   ];
 
-  const sortValue = sortByOptions.filter(
+  const currentSortOption = sortOptions.filter(
     (options) => options.value === sort.sortKey
   )[0].innerText;
 
@@ -46,7 +46,7 @@ export default function TodoList({ todoList, onRemoveTodo }) {
           <DownArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
           <div className={styles.dropDownBox}>
             <ul className={styles.dropDownList}>
-              {sortByOptions.map(({ innerText, value }) => (
+              {sortOptions.map(({ innerText, value }) => (
                 <li key={value} onClick={() => handleSort(value)}>
                   {innerText}
                 </li>
@@ -55,8 +55,8 @@ export default function TodoList({ todoList, onRemoveTodo }) {
           </div>
         </div>
 
-        <span className={styles.sortDisplayValue} onClick={handleReverse}>
-          {sortValue}
+        <span className={styles.currentSortOption} onClick={handleReverse}>
+          {currentSortOption}
           <button>
             {sort.isReverse ? (
               <UpArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />

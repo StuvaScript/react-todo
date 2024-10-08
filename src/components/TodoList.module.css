@@ -7,7 +7,7 @@
   padding-bottom: 50px;
 }
 
-.sortDisplayValue {
+.currentSortOption {
   font-size: 1rem;
   display: flex;
   width: max-content;
