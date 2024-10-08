@@ -68,40 +68,6 @@ export default function TodoContainer({ tableName }) {
     }
   };
 
-  // const fetchData = useCallback(async () => {
-  //   const options = {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
-  //     },
-  //   };
-
-  //   try {
-  //     const res = await fetch(url, options);
-
-  //     if (!res.ok) {
-  //       const message = `Error: ${res.status}`;
-  //       throw new Error(message);
-  //     }
-
-  //     const data = await res.json();
-
-  //     const todos = data.records.map((todoObject) => {
-  //       const todo = {
-  //         title: todoObject.fields.title,
-  //         id: todoObject.id,
-  //         createdTime: todoObject.createdTime,
-  //       };
-  //       return todo;
-  //     });
-
-  //     setTodoList(todos);
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }, [url]);
-
   const fetchData = useCallback(async () => {
     const options = {
       method: "GET",
@@ -120,11 +86,11 @@ export default function TodoContainer({ tableName }) {
 
       const data = await res.json();
 
-      const todos = data.records.map((todoObject) => {
+      const todos = data.records.map((record) => {
         const todo = {
-          title: todoObject.fields.title,
-          id: todoObject.id,
-          createdTime: todoObject.createdTime,
+          title: record.fields.title,
+          id: record.id,
+          createdTime: record.createdTime,
         };
         return todo;
       });

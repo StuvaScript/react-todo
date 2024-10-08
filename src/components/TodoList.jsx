@@ -20,7 +20,7 @@ export default function TodoList({ todoList, onRemoveTodo }) {
     isReverse: false,
   });
 
-  const handleSort = (sortKey) => setSort({ ...sort, sortKey });
+  const handleSort = (sortKey) => setSort({ sortKey, isReverse: false });
 
   const handleReverse = () => setSort({ ...sort, isReverse: !sort.isReverse });
 

@@ -1,5 +1,21 @@
 `** TODO **`
 
+<!-- The variable isReverse stays in it's direction when choosing a new sort pattern. Fix this to make it ascending when switching to new sort pattern. -->
+
+<!-- Move API requests to their own file -->
+
+Make accessible with tab index and aria read and aria hidden when not visible
+
+<!-- Organize files by Component, style, and functions? All in larger component files? -->
+
+Add comments to complex functions only
+
+Remove all commented out code. Search every file
+
+Deploy app
+
+Write a better README.md
+
 <!-- Make the delete button actually delete the item in the airtable app -->
 
 <!-- Add different sort buttons -->
@@ -19,15 +35,3 @@
 <!-- Give a smaller scale when you click a button or sort type -->
 
 <!-- Add Prop Types to the TodoContainer.jsx -->
-
-The variable isReverse stays in it's direction when choosing a new sort pattern. Fix this to make it ascending when switching to new sort pattern.
-
-<!-- Move API requests to their own file -->
-
-Make accessible with tab index and aria read and aria hidden when not visible
-
-<!-- Organize files by Component, style, and functions? All in larger component files? -->
-
-Add comments to all functions
-
-Write a better README.md
