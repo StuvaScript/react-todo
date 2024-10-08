@@ -24,10 +24,10 @@ export default function AddTodoForm({ onAddTodo }) {
 
   return (
     <form onSubmit={handleAddTodo} className={styles.form}>
-      <InputWithLabel value={todoTitle} handleChange={handleTitleChange}>
+      <InputWithLabel value={todoTitle} handleTitleChange={handleTitleChange}>
         Title:
       </InputWithLabel>
-      <button>
+      <button type="submit">
         <AddIcon height="20px" width="20px" />
       </button>
     </form>
