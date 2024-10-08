@@ -2,10 +2,14 @@ import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./InputWithLabel.module.css";
 
-export default function InputWithLabel({ children, value, handleTitleChange }) {
+export default function InputWithLabel({
+  children,
+  todoTitle,
+  handleTitleChange,
+}) {
   const inputRef = useRef();
 
-  useEffect(() => inputRef.current.focus());
+  useEffect(() => inputRef.current.focus(), []);
 
   return (
     <>
@@ -16,7 +20,7 @@ export default function InputWithLabel({ children, value, handleTitleChange }) {
         className={styles.input}
         id="todoTitle"
         name="title"
-        value={value}
+        value={todoTitle}
         onChange={handleTitleChange}
         ref={inputRef}
       ></input>
@@ -26,6 +30,6 @@ export default function InputWithLabel({ children, value, handleTitleChange }) {
 
 InputWithLabel.propTypes = {
   children: PropTypes.string,
-  value: PropTypes.string,
-  handleChange: PropTypes.func,
+  todoTitle: PropTypes.string,
+  handleTitleChange: PropTypes.func,
 };

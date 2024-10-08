@@ -17,6 +17,7 @@ export default function AddTodoForm({ onAddTodo }) {
     onAddTodo({
       title: todoTitle.trim(),
       createdTime: new Date().toString(),
+      id: Date.now().toString(),
     });
 
     setTodoTitle("");
@@ -24,7 +25,10 @@ export default function AddTodoForm({ onAddTodo }) {
 
   return (
     <form onSubmit={handleAddTodo} className={styles.form}>
-      <InputWithLabel value={todoTitle} handleTitleChange={handleTitleChange}>
+      <InputWithLabel
+        todoTitle={todoTitle}
+        handleTitleChange={handleTitleChange}
+      >
         Title:
       </InputWithLabel>
       <button type="submit">
