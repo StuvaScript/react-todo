@@ -113,8 +113,10 @@ export default function TodoContainer({ tableName }) {
   }, [isLoading, todoList]);
 
   const addTodo = async (newTodo) => {
+    // ``** optimistic rendering **``
     setTodoList([...todoList, newTodo]);
 
+    // If the response fails, remove the newly added todo
     const res = await postTodo(newTodo.title);
     if (!res) {
       removeTodo(newTodo.id);
@@ -123,7 +125,7 @@ export default function TodoContainer({ tableName }) {
 
     const newTodoObject = {
       ...newTodo,
-      id: res.id,
+      id: res.id, // This is the updated ID. Our initial temporary ID was created in the AddTodoForm.jsx file
     };
 
     setTodoList([...todoList, newTodoObject]);
@@ -132,9 +134,11 @@ export default function TodoContainer({ tableName }) {
   const removeTodo = async (id) => {
     const oldList = todoList;
 
+    // ``** optimistic rendering **``
     const newLIst = todoList.filter((todoItem) => todoItem.id !== id);
     setTodoList(newLIst);
 
+    // If the response fails, change the todo list back to the previous list
     const deleteRes = await deleteTodo(id);
     if (deleteRes === null) {
       setTodoList(oldList);

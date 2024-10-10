@@ -14,25 +14,25 @@ const SORTS = {
     todoList.sort((a, b) => (a.createdTime > b.createdTime ? 1 : -1)),
 };
 
+const sortOptions = [
+  { innerText: "Title", value: "TITLE" },
+  { innerText: "Created Time", value: "CREATED" },
+];
+
 export default function TodoList({ todoList, onRemoveTodo }) {
   const [sort, setSort] = useState({
     sortKey: "CREATED",
     isReverse: false,
   });
 
-  const handleSort = (sortKey) => setSort({ sortKey, isReverse: false });
-
-  const handleReverse = () => setSort({ ...sort, isReverse: !sort.isReverse });
-
   const sortFunction = SORTS[sort.sortKey];
   const sortedList = sort.isReverse
     ? sortFunction(todoList).reverse()
     : sortFunction(todoList);
 
-  const sortOptions = [
-    { innerText: "Title", value: "TITLE" },
-    { innerText: "Created Time", value: "CREATED" },
-  ];
+  const handleSort = (sortKey) => setSort({ sortKey, isReverse: false });
+
+  const handleReverse = () => setSort({ ...sort, isReverse: !sort.isReverse });
 
   const currentSortOption = sortOptions.filter(
     (options) => options.value === sort.sortKey
@@ -57,7 +57,7 @@ export default function TodoList({ todoList, onRemoveTodo }) {
 
         <span className={styles.currentSortOption} onClick={handleReverse}>
           {currentSortOption}
-          <button>
+          <button type="button">
             {sort.isReverse ? (
               <UpArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
             ) : (

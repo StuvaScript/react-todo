@@ -1,24 +1,32 @@
 `** TODO **`
 
-Add todos too quick doesn't allow them to be deleted for some reason
+<!-- Add todos too quick doesn't allow them to be deleted for some reason. This might be fixed. -->
 
-On horizontal mobile view, deleting todos jumps the page to the top for some reason
+<!-- On horizontal mobile view, deleting todos jumps the page to the top for some reason -->
 
-<!-- The variable isReverse stays in it's direction when choosing a new sort pattern. Fix this to make it ascending when switching to new sort pattern. -->
+Look into how to dynamically create new routes/todo lists. That would be a stunning feat. Not necessary though
 
-<!-- Move API requests to their own file -->
+Add priority tasking
 
-Make accessible with tab index and aria read and aria hidden when not visible
-
-<!-- Organize files by Component, style, and functions? All in larger component files? -->
-
-Add comments to complex functions only
+Add completed checkbox
 
 Remove all commented out code. Search every file
 
 Deploy app
 
 Write a better README.md
+
+Build a 3-5 minute presentation highlighting my project and the unique touches I added. Not a graded presentation so its chill. "Presentations are an opportunity to practice talking about your code/process and to celebrate all you've learned and accomplished."
+
+<!-- The variable isReverse stays in it's direction when choosing a new sort pattern. Fix this to make it ascending when switching to new sort pattern. -->
+
+<!-- Move API requests to their own file -->
+
+<!-- Make accessible with tab index and aria read and aria hidden when not visible -->
+
+<!-- Organize files by Component, style, and functions? All in larger component files? -->
+
+<!-- Add comments to complex functions only -->
 
 <!-- Make the delete button actually delete the item in the airtable app -->
 
