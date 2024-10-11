@@ -3,10 +3,14 @@ import styles from "./TodoContainer.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
 
 export default function TodoContainer({ tableName }) {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // todo ``** Need to make a way to have a 404 not found if someone manually enters a url that doesn't match the already created lists. Maybe with useParams() or with the router page? **``
+  const { todoListTitle } = useParams();
 
   const url = `https://api.airtable.com/v0/${
     import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -148,7 +152,7 @@ export default function TodoContainer({ tableName }) {
   return (
     <>
       <div className={styles.titleAndForm}>
-        <h1>Todo List</h1>
+        <h1>{todoListTitle}</h1>
         <AddTodoForm onAddTodo={addTodo} />
       </div>
       {isLoading ? (
