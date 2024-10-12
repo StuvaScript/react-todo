@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function CreateTodo({ onAddTodoList, allTodoLists }) {
   console.log(allTodoLists);
   const [todoListTitle, setTodoListTitle] = useState("");
+  console.log(todoListTitle);
   const [duplicateWarning, setDuplicateWarning] = useState(false);
   console.log(todoListTitle);
 

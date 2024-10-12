@@ -3,19 +3,26 @@ import styles from "./TodoContainer.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function TodoContainer({ tableName }) {
   const [todoList, setTodoList] = useState([]);
+  console.log(todoList);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentList, setCurrentList] = useState("");
 
-  // const navigate = useNavigate();
+  const location = useLocation();
+  const listName = location.state;
 
-  // todo ``** Need to make a way to have a 404 not found if someone manually enters a url that doesn't match the already created lists. Maybe with useParams() or with the router page? **``
-  const { currentTodoListTitle } = useParams();
+  useEffect(() => {
+    setCurrentList(listName);
+  }, [listName]);
 
-  const filterTodosForCurrentList = (todos, currentTodoListTitle) =>
-    todos.filter((todo) => todo.todoListName === currentTodoListTitle);
+  // const { currentTodoListTitle } = useParams();
+  // console.log(currentTodoListTitle);
+
+  const filterTodosForCurrentList = (todos, currentList) =>
+    todos.filter((todo) => todo.todoListName === currentList);
 
   const url = `https://api.airtable.com/v0/${
     import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -114,10 +121,14 @@ export default function TodoContainer({ tableName }) {
 
   useEffect(() => {
     fetchData()
-      .then((todos) => filterTodosForCurrentList(todos, currentTodoListTitle))
-      .then((value) => setTodoList(value))
+      .then((todos) => filterTodosForCurrentList(todos, currentList))
+      .then((value) => {
+        console.log(value);
+
+        setTodoList(value);
+      })
       .then(() => setIsLoading(false));
-  }, [fetchData, tableName]);
+  }, [fetchData, tableName, currentList]);
 
   useEffect(() => {
     !isLoading &&
@@ -160,20 +171,13 @@ export default function TodoContainer({ tableName }) {
   return (
     <>
       <div className={styles.titleAndForm}>
-        <h1>{currentTodoListTitle}</h1>
-        <AddTodoForm
-          onAddTodo={addTodo}
-          currentTodoListTitle={currentTodoListTitle}
-        />
+        <h1>{currentList}</h1>
+        <AddTodoForm onAddTodo={addTodo} currentList={currentList} />
       </div>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <TodoList
-          todoList={todoList}
-          onRemoveTodo={removeTodo}
-          currentTodoListTitle={currentTodoListTitle}
-        />
+        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
       )}
     </>
   );

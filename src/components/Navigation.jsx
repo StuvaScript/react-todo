@@ -10,7 +10,9 @@ export default function Navigation({ allTodoLists }) {
 
       {allTodoLists.map((list) => (
         <button key={list} type="button">
-          <Link to={`/${list}`}>{list}</Link>
+          <Link to={`/${list}`} state={list}>
+            {list}
+          </Link>
         </button>
       ))}
     </nav>

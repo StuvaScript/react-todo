@@ -109,10 +109,7 @@ export default function App() {
         <Route
           path="/:currentTodoListTitle"
           element={
-            <TodoContainer
-              tableName={import.meta.env.VITE_TABLE_NAME}
-              allTodoLists={allTodoLists}
-            />
+            <TodoContainer tableName={import.meta.env.VITE_TABLE_NAME} />
           }
         />
         <Route
@@ -120,7 +117,7 @@ export default function App() {
           element={
             <CreateTodo
               onAddTodoList={addTodoList}
-              // allTodoLists={allTodoLists}
+              allTodoLists={allTodoLists}
             />
           }
         />
