@@ -41,33 +41,34 @@ export default function TodoList({ todoList, onRemoveTodo }) {
 
   return (
     <>
-      <div className={styles.dropDownContainer}>
-        <div className={styles.dropDownTarget}>
-          Sort by
-          <DownArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
-          <div className={styles.dropDownBox}>
-            <ul className={styles.dropDownList}>
-              {sortOptions.map(({ innerText, value }) => (
-                <li key={value} onClick={() => handleSort(value)}>
-                  {innerText}
-                </li>
-              ))}
-            </ul>
+      {todoList[0] && (
+        <div className={styles.dropDownContainer}>
+          <div className={styles.dropDownTarget}>
+            Sort by
+            <DownArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
+            <div className={styles.dropDownBox}>
+              <ul className={styles.dropDownList}>
+                {sortOptions.map(({ innerText, value }) => (
+                  <li key={value} onClick={() => handleSort(value)}>
+                    {innerText}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
+
+          <span className={styles.currentSortOption} onClick={handleReverse}>
+            {currentSortOption}
+            <button type="button">
+              {sort.isReverse ? (
+                <UpArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
+              ) : (
+                <DownArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
+              )}
+            </button>
+          </span>
         </div>
-
-        <span className={styles.currentSortOption} onClick={handleReverse}>
-          {currentSortOption}
-          <button type="button">
-            {sort.isReverse ? (
-              <UpArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
-            ) : (
-              <DownArrowIcon height="1rem" width="1rem" fill="#1d1d1d" />
-            )}
-          </button>
-        </span>
-      </div>
-
+      )}
       <ul className={styles.unorderedList}>
         {sortedList.map(({ id, title }) => (
           <TodoListItem

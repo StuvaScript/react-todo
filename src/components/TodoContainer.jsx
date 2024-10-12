@@ -22,7 +22,7 @@ export default function TodoContainer({ tableName }) {
   // console.log(currentTodoListTitle);
 
   const filterTodosForCurrentList = (todos, currentList) =>
-    todos.filter((todo) => todo.todoListName === currentList);
+    todos.filter((todo) => todo.todoListName === currentList && todo.title);
 
   const url = `https://api.airtable.com/v0/${
     import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -113,6 +113,7 @@ export default function TodoContainer({ tableName }) {
         return todo;
       });
 
+      console.log({ todos });
       return todos;
     } catch (error) {
       console.log(error.message);
@@ -123,7 +124,7 @@ export default function TodoContainer({ tableName }) {
     fetchData()
       .then((todos) => filterTodosForCurrentList(todos, currentList))
       .then((value) => {
-        console.log(value);
+        console.log({ value });
 
         setTodoList(value);
       })
