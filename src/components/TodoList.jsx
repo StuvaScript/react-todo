@@ -19,7 +19,13 @@ const sortOptions = [
   { innerText: "Created Time", value: "CREATED" },
 ];
 
-export default function TodoList({ todoList, onRemoveTodo }) {
+export default function TodoList({
+  todoList,
+  onRemoveTodo,
+  currentTodoListTitle,
+}) {
+  console.log(currentTodoListTitle);
+  console.log(todoList);
   const [sort, setSort] = useState({
     sortKey: "CREATED",
     isReverse: false,

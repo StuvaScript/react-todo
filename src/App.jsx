@@ -57,11 +57,17 @@ const fetchTodoLists = async () => {
     }
 
     const data = await res.json();
-    console.log(data);
 
     const todoLists = data.records.map((record) => record.fields.todoListName);
 
-    return todoLists;
+    const removeDuplicateTodoLists = todoLists.reduce((newArray, todoList) => {
+      if (!newArray.includes(todoList)) {
+        newArray.push(todoList);
+      }
+      return newArray;
+    }, []);
+
+    return removeDuplicateTodoLists;
   } catch (error) {
     console.log(error.message);
   }
@@ -77,7 +83,7 @@ export default function App() {
     // If the response fails, remove the newly added todo
     const res = await createTodoField(newTodoListTitle);
     if (!res) {
-      console.log("Didn't work fool!!!");
+      console.log("Didn't work");
       // removeTodo(newTodo.id);
       return;
     }
@@ -94,8 +100,6 @@ export default function App() {
 
   useEffect(() => {
     fetchTodoLists().then((value) => setAllTodoLists(value));
-
-    // .then(() => setIsLoading(false));
   }, []);
 
   return (
@@ -103,9 +107,12 @@ export default function App() {
       <Navigation allTodoLists={allTodoLists} />
       <Routes>
         <Route
-          path="/:todoListTitle"
+          path="/:currentTodoListTitle"
           element={
-            <TodoContainer tableName={import.meta.env.VITE_TABLE_NAME} />
+            <TodoContainer
+              tableName={import.meta.env.VITE_TABLE_NAME}
+              allTodoLists={allTodoLists}
+            />
           }
         />
         <Route
@@ -113,10 +120,11 @@ export default function App() {
           element={
             <CreateTodo
               onAddTodoList={addTodoList}
-              allTodoLists={allTodoLists}
+              // allTodoLists={allTodoLists}
             />
           }
         />
+        <Route path="/404" element={<h1>404: Page not found</h1>} />
       </Routes>
     </Router>
   );

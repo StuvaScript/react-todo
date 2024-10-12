@@ -9,8 +9,13 @@ export default function TodoContainer({ tableName }) {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // const navigate = useNavigate();
+
   // todo ``** Need to make a way to have a 404 not found if someone manually enters a url that doesn't match the already created lists. Maybe with useParams() or with the router page? **``
-  const { todoListTitle } = useParams();
+  const { currentTodoListTitle } = useParams();
+
+  const filterTodosForCurrentList = (todos, currentTodoListTitle) =>
+    todos.filter((todo) => todo.todoListName === currentTodoListTitle);
 
   const url = `https://api.airtable.com/v0/${
     import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -40,11 +45,12 @@ export default function TodoContainer({ tableName }) {
     }
   };
 
-  const postTodo = async (todo) => {
+  const postTodo = async (todo, todoListName) => {
     try {
       const airtableData = {
         fields: {
           title: todo,
+          todoListName: todoListName,
         },
       };
 
@@ -93,6 +99,7 @@ export default function TodoContainer({ tableName }) {
       const todos = data.records.map((record) => {
         const todo = {
           title: record.fields.title,
+          todoListName: record.fields.todoListName,
           id: record.id,
           createdTime: record.createdTime,
         };
@@ -107,6 +114,7 @@ export default function TodoContainer({ tableName }) {
 
   useEffect(() => {
     fetchData()
+      .then((todos) => filterTodosForCurrentList(todos, currentTodoListTitle))
       .then((value) => setTodoList(value))
       .then(() => setIsLoading(false));
   }, [fetchData, tableName]);
@@ -121,7 +129,7 @@ export default function TodoContainer({ tableName }) {
     setTodoList([...todoList, newTodo]);
 
     // If the response fails, remove the newly added todo
-    const res = await postTodo(newTodo.title);
+    const res = await postTodo(newTodo.title, newTodo.todoListName);
     if (!res) {
       removeTodo(newTodo.id);
       return;
@@ -152,13 +160,20 @@ export default function TodoContainer({ tableName }) {
   return (
     <>
       <div className={styles.titleAndForm}>
-        <h1>{todoListTitle}</h1>
-        <AddTodoForm onAddTodo={addTodo} />
+        <h1>{currentTodoListTitle}</h1>
+        <AddTodoForm
+          onAddTodo={addTodo}
+          currentTodoListTitle={currentTodoListTitle}
+        />
       </div>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+        <TodoList
+          todoList={todoList}
+          onRemoveTodo={removeTodo}
+          currentTodoListTitle={currentTodoListTitle}
+        />
       )}
     </>
   );

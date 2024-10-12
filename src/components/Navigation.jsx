@@ -16,3 +16,5 @@ export default function Navigation({ allTodoLists }) {
     </nav>
   );
 }
+
+//todo ``** Need to get the list to regenerate on list button clicks. Maybe add a side effect to listen for a change. Can even be a unique state that changes every click.

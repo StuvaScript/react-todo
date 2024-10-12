@@ -1,11 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import AddIcon from "../assets/icons/add-icon.svg?react";
+import { useNavigate } from "react-router-dom";
 
 // todo ``** Need PropTypes **``
 
 export default function CreateTodo({ onAddTodoList, allTodoLists }) {
+  console.log(allTodoLists);
   const [todoListTitle, setTodoListTitle] = useState("");
   const [duplicateWarning, setDuplicateWarning] = useState(false);
+  console.log(todoListTitle);
+
+  const navigate = useNavigate();
 
   const handleTitleChange = (event) => setTodoListTitle(event.target.value);
 
@@ -15,19 +20,19 @@ export default function CreateTodo({ onAddTodoList, allTodoLists }) {
       return;
     }
 
-    const checkForDuplicateName = allTodoLists.some((list) =>
-      list.toLowerCase().includes(todoListTitle.toLowerCase())
+    const checkForDuplicateName = allTodoLists.some(
+      (list) => list.toLowerCase() === todoListTitle.toLowerCase()
     );
 
     if (checkForDuplicateName) {
       setDuplicateWarning(true);
-      return;
+    } else {
+      onAddTodoList(todoListTitle.trim());
+
+      setTodoListTitle("");
+      setDuplicateWarning(false);
+      navigate(`/${todoListTitle}`);
     }
-
-    onAddTodoList(todoListTitle.trim());
-
-    setTodoListTitle("");
-    setDuplicateWarning(false);
   };
 
   const inputRef = useRef();

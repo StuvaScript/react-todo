@@ -4,6 +4,8 @@
 
 <!-- On horizontal mobile view, deleting todos jumps the page to the top for some reason -->
 
+Update all PropTypes
+
 Look into how to dynamically create new routes/todo lists. That would be a stunning feat. Not necessary though
 
 DRY. Turn repeated code into reusable components.
