@@ -8,7 +8,31 @@ const url = `https://api.airtable.com/v0/${
   import.meta.env.VITE_AIRTABLE_BASE_ID
 }/${import.meta.env.VITE_TABLE_NAME}`;
 
-const createTodoField = async (todoListName) => {
+const deleteTodoList = async (records) => {
+  try {
+    const options = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+      },
+    };
+
+    const res = await fetch(`${url}?${records}`, options);
+
+    if (!res.ok) {
+      const message = `Error: ${res.status}`;
+      throw new Error(message);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error.message);
+    return null;
+  }
+};
+
+const createTodoList = async (todoListName) => {
   try {
     const airtableData = {
       fields: {
@@ -58,19 +82,48 @@ const fetchTodoLists = async () => {
 
     const data = await res.json();
 
-    const todoLists = data.records.map((record) => record.fields.todoListName);
+    return data;
+    // const todoLists = data.records.map((record) => record.fields.todoListName);
 
-    const removeDuplicateTodoLists = todoLists.reduce((newArray, todoList) => {
-      if (!newArray.includes(todoList)) {
-        newArray.push(todoList);
-      }
-      return newArray;
-    }, []);
+    // const removeDuplicateTodoLists = todoLists.reduce((newArray, todoList) => {
+    //   if (!newArray.includes(todoList)) {
+    //     newArray.push(todoList);
+    //   }
+    //   return newArray;
+    // }, []);
 
-    return removeDuplicateTodoLists;
+    // return removeDuplicateTodoLists;
   } catch (error) {
     console.log(error.message);
   }
+};
+
+const extractUniqueTodoListNames = (data) => {
+  const todoLists = data.records.map((record) => record.fields.todoListName);
+
+  const removeDuplicateTodoLists = todoLists.reduce((newArray, todoList) => {
+    if (!newArray.includes(todoList)) {
+      newArray.push(todoList);
+    }
+    return newArray;
+  }, []);
+
+  return removeDuplicateTodoLists;
+};
+
+const filterTodosForCurrentList = (todos, currentList) =>
+  todos.records.filter((record) => record.fields.todoListName === currentList);
+
+const formatIDsForDeleting = (records) => {
+  //! ``** CAN ONLY DO UP TO 10 RECORDS. WORK WITH THIS INFO
+
+  let newString = "";
+
+  records.forEach((record, index) => {
+    newString += `records[]=${record.id}${index < records.length ? "&" : ""}`;
+  });
+
+  return newString;
 };
 
 export default function App() {
@@ -81,7 +134,7 @@ export default function App() {
     setAllTodoLists([...allTodoLists, newTodoListTitle]);
 
     // If the response fails, remove the newly added todo
-    const res = await createTodoField(newTodoListTitle);
+    const res = await createTodoList(newTodoListTitle);
     if (!res) {
       console.log("Didn't work");
       // removeTodo(newTodo.id);
@@ -98,8 +151,45 @@ export default function App() {
     // todo ``** Need to use Navigate() hook here to jump straight to the new todo list. If the POST response fails, we can Navigate() back to the CreateTodo file **``
   };
 
+  const handleRemoveList = async (currentList) => {
+    console.log(currentList);
+    const data = await fetchTodoLists();
+
+    const currentRecordsToBeDeleted = filterTodosForCurrentList(
+      data,
+      currentList
+    );
+    console.log(currentRecordsToBeDeleted);
+
+    const idString = formatIDsForDeleting(currentRecordsToBeDeleted);
+    console.log(idString);
+
+    deleteTodoList(idString);
+
+    console.log(allTodoLists);
+
+    const updatedTodoLists = allTodoLists.filter(
+      (list) => list.toLowerCase() !== currentList.toLowerCase()
+    );
+    setAllTodoLists(updatedTodoLists);
+
+    // const oldList = todoList;
+
+    // ``** optimistic rendering **``
+    // const newLIst = todoList.filter((todoItem) => todoItem.id !== id);
+    // setTodoList(newLIst);
+
+    // If the response fails, change the todo list back to the previous list
+    // const deleteRes = await deleteTodo(id);
+    // if (deleteRes === null) {
+    //   setTodoList(oldList);
+    // }
+  };
+
   useEffect(() => {
-    fetchTodoLists().then((value) => setAllTodoLists(value));
+    fetchTodoLists()
+      .then((data) => extractUniqueTodoListNames(data))
+      .then((value) => setAllTodoLists(value));
   }, []);
 
   return (
@@ -109,7 +199,10 @@ export default function App() {
         <Route
           path="/:currentTodoListTitle"
           element={
-            <TodoContainer tableName={import.meta.env.VITE_TABLE_NAME} />
+            <TodoContainer
+              tableName={import.meta.env.VITE_TABLE_NAME}
+              onRemoveList={handleRemoveList}
+            />
           }
         />
         <Route

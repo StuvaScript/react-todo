@@ -3,13 +3,15 @@ import styles from "./TodoContainer.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import PropTypes from "prop-types";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import TrashCanIcon from "../assets/icons/trash-can-icon.svg?react";
 
-export default function TodoContainer({ tableName }) {
+export default function TodoContainer({ tableName, onRemoveList }) {
   const [todoList, setTodoList] = useState([]);
-  console.log(todoList);
   const [isLoading, setIsLoading] = useState(true);
   const [currentList, setCurrentList] = useState("");
+
+  const navigate = useNavigate();
 
   const location = useLocation();
   const listName = location.state;
@@ -113,7 +115,6 @@ export default function TodoContainer({ tableName }) {
         return todo;
       });
 
-      console.log({ todos });
       return todos;
     } catch (error) {
       console.log(error.message);
@@ -121,13 +122,10 @@ export default function TodoContainer({ tableName }) {
   }, [url]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchData()
       .then((todos) => filterTodosForCurrentList(todos, currentList))
-      .then((value) => {
-        console.log({ value });
-
-        setTodoList(value);
-      })
+      .then((value) => setTodoList(value))
       .then(() => setIsLoading(false));
   }, [fetchData, tableName, currentList]);
 
@@ -173,6 +171,18 @@ export default function TodoContainer({ tableName }) {
     <>
       <div className={styles.titleAndForm}>
         <h1>{currentList}</h1>
+        <div>
+          <p>Delete List </p>
+          <button
+            type="button"
+            onClick={() => {
+              onRemoveList(currentList);
+              navigate("/new");
+            }}
+          >
+            <TrashCanIcon height="25px" width="25px" />
+          </button>
+        </div>
         <AddTodoForm onAddTodo={addTodo} currentList={currentList} />
       </div>
       {isLoading ? (

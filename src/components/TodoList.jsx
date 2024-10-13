@@ -20,7 +20,6 @@ const sortOptions = [
 ];
 
 export default function TodoList({ todoList, onRemoveTodo }) {
-  console.log(todoList);
   const [sort, setSort] = useState({
     sortKey: "CREATED",
     isReverse: false,

@@ -5,11 +5,8 @@ import { useNavigate } from "react-router-dom";
 // todo ``** Need PropTypes **``
 
 export default function CreateTodo({ onAddTodoList, allTodoLists }) {
-  console.log(allTodoLists);
   const [todoListTitle, setTodoListTitle] = useState("");
-  console.log(todoListTitle);
   const [duplicateWarning, setDuplicateWarning] = useState(false);
-  console.log(todoListTitle);
 
   const navigate = useNavigate();
 
@@ -32,7 +29,7 @@ export default function CreateTodo({ onAddTodoList, allTodoLists }) {
 
       setTodoListTitle("");
       setDuplicateWarning(false);
-      navigate(`/${todoListTitle}`);
+      navigate(`/${todoListTitle}`, { state: todoListTitle });
     }
   };
 
