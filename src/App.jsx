@@ -166,7 +166,7 @@ export default function App() {
           }
         />
         <Route
-          path="/new"
+          path="/"
           element={
             <CreateTodo
               onAddTodoList={addTodoList}

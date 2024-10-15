@@ -174,7 +174,7 @@ export default function TodoContainer({ tableName, onRemoveList }) {
             type="button"
             onClick={() => {
               onRemoveList(currentList);
-              navigate("/new");
+              navigate("/");
             }}
           >
             <TrashCanIcon height="25px" width="25px" />
