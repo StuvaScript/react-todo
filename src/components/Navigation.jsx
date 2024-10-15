@@ -6,7 +6,7 @@ export default function Navigation({ allTodoLists }) {
   return (
     <nav className={styles.nav}>
       <button type="button" className={styles.createNewTodoList}>
-        <Link to="/new">New Todo List</Link>
+        <Link to="/">New Todo List</Link>
       </button>
 
       {allTodoLists.map((list) => (
