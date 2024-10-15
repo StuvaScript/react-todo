@@ -1,53 +1,64 @@
-`** TODO **`
+# React Todo
 
-<!-- Add todos too quick doesn't allow them to be deleted for some reason. This might be fixed. -->
+This is my first large application to be built using React! This is a part of the [Code The Dream](https://codethedream.org/) React course.
 
-<!-- On horizontal mobile view, deleting todos jumps the page to the top for some reason -->
+## Where To Find It
 
-<!-- Update all PropTypes -->
+Visit the [live project here](). (not live yet)
 
-<!-- Look into how to dynamically create new routes/todo lists. That would be a stunning feat. Not necessary though
+## How To Use It
 
-DRY. Turn repeated code into reusable components.
+This app will start you off in the "New Todo List" page where you will create your first todo list!
 
-Add priority tasking
+### Adding a list
 
-Add completed checkbox -->
+In the input field, enter the name of your new todo list and press `Enter` or click the add icon. You will be automatically redirected to your new list after creating it.
 
-<!-- Remove all commented out code. Search every file -->
+If you enter a name that already exists as a list, it won't allow you to enter it and you'll need to come up with a different name.
 
-Deploy app
+The "New Todo List" button will always live at the top of your screen. Clicking it will bring you back to the screen to create another todo list.
 
-Write a better README.md
+### Navigating between lists
 
-Build a 3-5 minute presentation highlighting my project and the unique touches I added. Not a graded presentation so its chill. "Presentations are an opportunity to practice talking about your code/process and to celebrate all you've learned and accomplished."
+Add the top of the screen you will see buttons of all of your todo lists. Click a button to be navigated to that list.
 
-<!-- The variable isReverse stays in it's direction when choosing a new sort pattern. Fix this to make it ascending when switching to new sort pattern. -->
+### Adding todo's
 
-<!-- Move API requests to their own file -->
+To add a todo item, type the item into the input field and press `Enter` or click the add icon and it will be added to your list.
 
-<!-- Make accessible with tab index and aria read and aria hidden when not visible -->
+### Reordering todo's
 
-<!-- Organize files by Component, style, and functions? All in larger component files? -->
+Click or hover over the box that says "Sort by" and a list will appear. These are the types of sorting you can do to your list. Click one and watch your list rearrange itself!
 
-<!-- Add comments to complex functions only -->
+Below the "Sort by" box it will say what sorting type you are currently sorting by. Next to that is an arrow. If you click the arrow it will reorder your list from ascending to descending and vice versa if you click it again.
 
-<!-- Make the delete button actually delete the item in the airtable app -->
+### Deleting todo's
 
-<!-- Add different sort buttons -->
+At the end of each todo item you will see a trashcan icon. Clicking that will delete that todo item from your list.
 
-<!-- Sort by created time -->
+### Deleting an entire list
 
-<!-- Add an up or down arrow on the sort buttons -->
+On each todo list page you will see the words "Delete List" with a trashcan icon next to it. Clicking that will delete the current list you're on and redirect you to the "New Todo List".
 
-<!-- Add a down chevron instead of a colon after "Sort by" -->
+## Built With
 
-<!-- Or make a dropdown list for sorting options -->
+Vite, React, CSS, and HTML
 
-<!-- When you add a todo, make it auto sort -->
+### With assistance from:
 
-<!-- Have the sort type remembered in the local storage or have default sort be Created By date -->
+- React Router Dom
+- PropTypes
+- Prettier
+- ES Lint
 
-<!-- Give a smaller scale when you click a button or sort type -->
+## Author
 
-<!-- Add Prop Types to the TodoContainer.jsx -->
+- **Stuvascript** - [Portfolio](https://stuvascript.github.io/portfolio/)
+
+## License
+
+This project is licensed under the MIT License - see the [MIT License](https://choosealicense.com/licenses/mit/) file for details
+
+## Acknowledgments
+
+- Shout out to [Code The Dream](https://codethedream.org/) for helping me on my coding journey!
