@@ -4,7 +4,7 @@ import styles from "./Navigation.module.css";
 export default function Navigation({ allTodoLists }) {
   return (
     <nav className={styles.nav}>
-      <button type="button">
+      <button type="button" className={styles.createNewTodoList}>
         <Link to="/new">New Todo List</Link>
       </button>
 

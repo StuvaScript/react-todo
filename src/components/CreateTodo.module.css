@@ -1,0 +1,29 @@
+.newTodoContainer {
+  align-self: end;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  > button {
+    padding: 10px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (width <= 450px) {
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+}

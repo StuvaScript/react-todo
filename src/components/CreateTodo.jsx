@@ -1,6 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import AddIcon from "../assets/icons/add-icon.svg?react";
 import { useNavigate } from "react-router-dom";
+import InputWithLabel from "./InputWithLabel";
+// import styles from "./AddTodoForm.module.css";
+import styles from "./CreateTodo.module.css";
 
 // todo ``** Need PropTypes **``
 
@@ -33,28 +36,25 @@ export default function CreateTodo({ onAddTodoList, allTodoLists }) {
     }
   };
 
-  const inputRef = useRef();
-
-  useEffect(() => inputRef.current.focus(), []);
-
   return (
-    <>
+    <div className={styles.newTodoContainer}>
       <h1>New Todo List</h1>
 
-      <form onSubmit={handleAddTodoList}>
-        <label htmlFor="todoListTitle">Create New Todo List:</label>
-        <input
+      <form onSubmit={handleAddTodoList} className={styles.form}>
+        <InputWithLabel
+          todoTitle={todoListTitle}
+          handleTitleChange={handleTitleChange}
           id="todoListTitle"
-          name="todoListTitle"
-          value={todoListTitle}
-          onChange={handleTitleChange}
-          ref={inputRef}
-        ></input>
+          name="title"
+        >
+          Create New Todo List:
+        </InputWithLabel>
+
         <button type="submit">
           <AddIcon height="20px" width="20px" />
         </button>
       </form>
       {duplicateWarning && <span>Name already taken</span>}
-    </>
+    </div>
   );
 }

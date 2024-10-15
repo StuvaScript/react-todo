@@ -168,10 +168,10 @@ export default function TodoContainer({ tableName, onRemoveList }) {
   };
 
   return (
-    <>
+    <div className={styles.todoContainer}>
       <div className={styles.titleAndForm}>
         <h1>{currentList}</h1>
-        <div>
+        <div className={styles.deleteContainer}>
           <p>Delete List </p>
           <button
             type="button"
@@ -190,7 +190,7 @@ export default function TodoContainer({ tableName, onRemoveList }) {
       ) : (
         <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
       )}
-    </>
+    </div>
   );
 }
 

@@ -111,12 +111,7 @@ const extractUniqueTodoListNames = (data) => {
   return removeDuplicateTodoLists;
 };
 
-const filterTodosForCurrentList = (todos, currentList) =>
-  todos.records.filter((record) => record.fields.todoListName === currentList);
-
 const formatIDsForDeleting = (records) => {
-  //! ``** CAN ONLY DO UP TO 10 RECORDS. WORK WITH THIS INFO
-
   let newString = "";
 
   records.forEach((record, index) => {
@@ -152,21 +147,18 @@ export default function App() {
   };
 
   const handleRemoveList = async (currentList) => {
-    console.log(currentList);
     const data = await fetchTodoLists();
 
-    const currentRecordsToBeDeleted = filterTodosForCurrentList(
-      data,
-      currentList
+    const currentRecordsToBeDeleted = data.records.filter(
+      (record) => record.fields.todoListName === currentList
     );
-    console.log(currentRecordsToBeDeleted);
+    // ``** The API can only delete 10 records at a time. This breaks the array into lengths that are 10 items long max.
+    while (currentRecordsToBeDeleted.length > 0) {
+      const records = currentRecordsToBeDeleted.splice(0, 10);
+      const idString = formatIDsForDeleting(records);
 
-    const idString = formatIDsForDeleting(currentRecordsToBeDeleted);
-    console.log(idString);
-
-    deleteTodoList(idString);
-
-    console.log(allTodoLists);
+      deleteTodoList(idString);
+    }
 
     const updatedTodoLists = allTodoLists.filter(
       (list) => list.toLowerCase() !== currentList.toLowerCase()

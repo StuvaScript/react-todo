@@ -29,6 +29,8 @@ export default function AddTodoForm({ onAddTodo, currentList }) {
       <InputWithLabel
         todoTitle={todoTitle}
         handleTitleChange={handleTitleChange}
+        id="todoTitle"
+        name="title"
       >
         Title:
       </InputWithLabel>
