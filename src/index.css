@@ -4,9 +4,16 @@
 }
 
 :root {
-  --main-color: #ffffff;
+  /** ``** Just holding on to these colors just in case I want to revert back to this theme from the Halloween color theme */
+
+  /* --main-color: #ffffff;
   --secondary-color: #70fafa;
   --accent-color: #ffd5c2;
+  --background-color: #1d1d1d; */
+
+  --main-color: #ca8748;
+  --secondary-color: #62c451;
+  --accent-color: #ba5cbb;
   --background-color: #1d1d1d;
 }
 
@@ -27,10 +34,19 @@ body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 1.25rem;
   padding: 20px;
+
+  height: 100vh;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  justify-content: center;
+
+  gap: 30px;
 }
 
 h1 {
-  font-size: 5rem;
+  padding: 15px;
+  font-size: clamp(1.5rem, 10vw, 5rem);
   text-align: center;
   font-family: handwritten;
   font-weight: 700;
@@ -42,6 +58,7 @@ h1 {
   );
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  hyphens: auto;
 }
 
 button {

@@ -6,6 +6,8 @@ export default function InputWithLabel({
   children,
   todoTitle,
   handleTitleChange,
+  id,
+  name,
 }) {
   const inputRef = useRef();
 
@@ -13,13 +15,13 @@ export default function InputWithLabel({
 
   return (
     <>
-      <label htmlFor="todoTitle" className={styles.label}>
+      <label htmlFor={id} className={styles.label}>
         {children}
       </label>
       <input
         className={styles.input}
-        id="todoTitle"
-        name="title"
+        id={id}
+        name={name}
         value={todoTitle}
         onChange={handleTitleChange}
         ref={inputRef}
@@ -32,4 +34,6 @@ InputWithLabel.propTypes = {
   children: PropTypes.string,
   todoTitle: PropTypes.string,
   handleTitleChange: PropTypes.func,
+  id: PropTypes.string,
+  name: PropTypes.string,
 };

@@ -1,6 +1,14 @@
 .nav {
-  display: flex;
+  margin: auto;
+  width: 75vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
+
+  button {
+    background: var(--secondary-color);
+    padding: 5px 0;
+  }
 
   a {
     text-decoration: none;
@@ -12,4 +20,8 @@
   a:active {
     color: var(--background-color);
   }
+}
+
+button.createNewTodoList {
+  background: var(--accent-color);
 }

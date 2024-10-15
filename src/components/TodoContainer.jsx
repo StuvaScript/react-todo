@@ -3,10 +3,25 @@ import styles from "./TodoContainer.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import PropTypes from "prop-types";
+import { useLocation, useNavigate } from "react-router-dom";
+import TrashCanIcon from "../assets/icons/trash-can-icon.svg?react";
 
-export default function TodoContainer({ tableName }) {
+export default function TodoContainer({ tableName, onRemoveList }) {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentList, setCurrentList] = useState("");
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const listName = location.state;
+
+  useEffect(() => {
+    setCurrentList(listName);
+  }, [listName]);
+
+  const filterTodosForCurrentList = (todos, currentList) =>
+    todos.filter((todo) => todo.todoListName === currentList && todo.title);
 
   const url = `https://api.airtable.com/v0/${
     import.meta.env.VITE_AIRTABLE_BASE_ID
@@ -36,11 +51,12 @@ export default function TodoContainer({ tableName }) {
     }
   };
 
-  const postTodo = async (todo) => {
+  const postTodo = async (todo, todoListName) => {
     try {
       const airtableData = {
         fields: {
           title: todo,
+          todoListName: todoListName,
         },
       };
 
@@ -89,6 +105,7 @@ export default function TodoContainer({ tableName }) {
       const todos = data.records.map((record) => {
         const todo = {
           title: record.fields.title,
+          todoListName: record.fields.todoListName,
           id: record.id,
           createdTime: record.createdTime,
         };
@@ -102,10 +119,12 @@ export default function TodoContainer({ tableName }) {
   }, [url]);
 
   useEffect(() => {
+    setIsLoading(true);
     fetchData()
+      .then((todos) => filterTodosForCurrentList(todos, currentList))
       .then((value) => setTodoList(value))
       .then(() => setIsLoading(false));
-  }, [fetchData, tableName]);
+  }, [fetchData, tableName, currentList]);
 
   useEffect(() => {
     !isLoading &&
@@ -117,7 +136,7 @@ export default function TodoContainer({ tableName }) {
     setTodoList([...todoList, newTodo]);
 
     // If the response fails, remove the newly added todo
-    const res = await postTodo(newTodo.title);
+    const res = await postTodo(newTodo.title, newTodo.todoListName);
     if (!res) {
       removeTodo(newTodo.id);
       return;
@@ -146,20 +165,33 @@ export default function TodoContainer({ tableName }) {
   };
 
   return (
-    <>
+    <div className={styles.todoContainer}>
       <div className={styles.titleAndForm}>
-        <h1>Todo List</h1>
-        <AddTodoForm onAddTodo={addTodo} />
+        <h1>{currentList}</h1>
+        <div className={styles.deleteContainer}>
+          <p>Delete List </p>
+          <button
+            type="button"
+            onClick={() => {
+              onRemoveList(currentList);
+              navigate("/new");
+            }}
+          >
+            <TrashCanIcon height="25px" width="25px" />
+          </button>
+        </div>
+        <AddTodoForm onAddTodo={addTodo} currentList={currentList} />
       </div>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
       )}
-    </>
+    </div>
   );
 }
 
 TodoContainer.propTypes = {
   tableName: PropTypes.string,
+  onRemoveList: PropTypes.func,
 };
