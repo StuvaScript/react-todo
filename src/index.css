@@ -1,8 +1,13 @@
+@font-face {
+  font-family: handwritten;
+  src: url(./assets/fonts/Merienda/Merienda-VariableFont_wght.ttf);
+}
+
 :root {
   --main-color: #ffffff;
   --secondary-color: #70fafa;
   --accent-color: #ffd5c2;
-  --background-color: rgb(29, 29, 29);
+  --background-color: #1d1d1d;
 }
 
 *,
@@ -26,8 +31,17 @@ body {
 
 h1 {
   font-size: 5rem;
-  /* font-size: clamp(100px, 5rem, 500px); */
-  /* font-size: clamp(2rem, 50vw, 6rem); */
+  text-align: center;
+  font-family: handwritten;
+  font-weight: 700;
+  background: linear-gradient(
+    90deg,
+    var(--secondary-color),
+    var(--main-color),
+    var(--accent-color)
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 button {
@@ -36,10 +50,14 @@ button {
   border: none;
   transition: all 200ms ease-in-out;
   background: var(--accent-color);
-}
 
-button:hover {
-  cursor: pointer;
-  scale: 1.1;
-  filter: brightness(75%);
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+    filter: brightness(75%);
+  }
+
+  &:active {
+    scale: 0.9;
+  }
 }

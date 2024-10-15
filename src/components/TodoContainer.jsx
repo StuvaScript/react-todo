@@ -1,15 +1,40 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./TodoContainer.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
+import PropTypes from "prop-types";
 
-export default function TodoContainer() {
+export default function TodoContainer({ tableName }) {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const url = `https://api.airtable.com/v0/${
     import.meta.env.VITE_AIRTABLE_BASE_ID
-  }/${import.meta.env.VITE_TABLE_NAME}`;
+  }/${tableName}`;
+
+  const deleteTodo = async (id) => {
+    try {
+      const options = {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_AIRTABLE_API_TOKEN}`,
+        },
+      };
+
+      const res = await fetch(`${url}/${id}`, options);
+
+      if (!res.ok) {
+        const message = `Error: ${res.status}`;
+        throw new Error(message);
+      }
+
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.log(error.message);
+      return null;
+    }
+  };
 
   const postTodo = async (todo) => {
     try {
@@ -43,7 +68,7 @@ export default function TodoContainer() {
     }
   };
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     const options = {
       method: "GET",
       headers: {
@@ -52,10 +77,7 @@ export default function TodoContainer() {
     };
 
     try {
-      const res = await fetch(
-        `${url}?view=Grid%20view&sort[0][field]=title&sort[0][direction]=asc`,
-        options
-      );
+      const res = await fetch(url, options);
 
       if (!res.ok) {
         const message = `Error: ${res.status}`;
@@ -64,28 +86,26 @@ export default function TodoContainer() {
 
       const data = await res.json();
 
-      const sortedData = data.records.sort((a, b) =>
-        a.fields.title.toLowerCase() > b.fields.title.toLowerCase() ? 1 : -1
-      );
-
-      const todos = sortedData.map((todoObject) => {
+      const todos = data.records.map((record) => {
         const todo = {
-          title: todoObject.fields.title,
-          id: todoObject.id,
+          title: record.fields.title,
+          id: record.id,
+          createdTime: record.createdTime,
         };
         return todo;
       });
 
-      setTodoList(todos);
-      setIsLoading(false);
+      return todos;
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }, [url]);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+      .then((value) => setTodoList(value))
+      .then(() => setIsLoading(false));
+  }, [fetchData, tableName]);
 
   useEffect(() => {
     !isLoading &&
@@ -93,23 +113,38 @@ export default function TodoContainer() {
   }, [isLoading, todoList]);
 
   const addTodo = async (newTodo) => {
+    // ``** optimistic rendering **``
     setTodoList([...todoList, newTodo]);
 
+    // If the response fails, remove the newly added todo
     const res = await postTodo(newTodo.title);
     if (!res) {
       removeTodo(newTodo.id);
       return;
     }
-    const newTodoObject = { title: res.fields.title, id: res.id };
+
+    const newTodoObject = {
+      ...newTodo,
+      id: res.id, // This is the updated ID. Our initial temporary ID was created in the AddTodoForm.jsx file
+    };
 
     setTodoList([...todoList, newTodoObject]);
   };
 
-  const removeTodo = (id) => {
-    const newLIst = todoList.filter((todoItem) => todoItem.id !== id);
+  const removeTodo = async (id) => {
+    const oldList = todoList;
 
+    // ``** optimistic rendering **``
+    const newLIst = todoList.filter((todoItem) => todoItem.id !== id);
     setTodoList(newLIst);
+
+    // If the response fails, change the todo list back to the previous list
+    const deleteRes = await deleteTodo(id);
+    if (deleteRes === null) {
+      setTodoList(oldList);
+    }
   };
+
   return (
     <>
       <div className={styles.titleAndForm}>
@@ -124,3 +159,7 @@ export default function TodoContainer() {
     </>
   );
 }
+
+TodoContainer.propTypes = {
+  tableName: PropTypes.string,
+};

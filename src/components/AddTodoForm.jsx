@@ -14,17 +14,24 @@ export default function AddTodoForm({ onAddTodo }) {
     if (todoTitle === "") {
       return;
     }
-    onAddTodo({ title: todoTitle.trim(), id: Date.now().toString() });
+    onAddTodo({
+      title: todoTitle.trim(),
+      createdTime: new Date().toString(),
+      id: Date.now().toString(), // This ID is temporary. We are optimistically rendering our todos before we get the response back from our API call. We use this as our key in our list in the TodoList.jsx file. After our API response comes back as OK, we update the ID with the one provided by Airtable in the TodoContainer.jsx file.
+    });
 
     setTodoTitle("");
   };
 
   return (
     <form onSubmit={handleAddTodo} className={styles.form}>
-      <InputWithLabel value={todoTitle} handleChange={handleTitleChange}>
+      <InputWithLabel
+        todoTitle={todoTitle}
+        handleTitleChange={handleTitleChange}
+      >
         Title:
       </InputWithLabel>
-      <button>
+      <button type="submit">
         <AddIcon height="20px" width="20px" />
       </button>
     </form>
