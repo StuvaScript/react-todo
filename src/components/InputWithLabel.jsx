@@ -34,4 +34,6 @@ InputWithLabel.propTypes = {
   children: PropTypes.string,
   todoTitle: PropTypes.string,
   handleTitleChange: PropTypes.func,
+  id: PropTypes.string,
+  name: PropTypes.string,
 };

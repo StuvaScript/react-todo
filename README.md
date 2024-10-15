@@ -4,17 +4,17 @@
 
 <!-- On horizontal mobile view, deleting todos jumps the page to the top for some reason -->
 
-Update all PropTypes
+<!-- Update all PropTypes -->
 
-Look into how to dynamically create new routes/todo lists. That would be a stunning feat. Not necessary though
+<!-- Look into how to dynamically create new routes/todo lists. That would be a stunning feat. Not necessary though
 
 DRY. Turn repeated code into reusable components.
 
 Add priority tasking
 
-Add completed checkbox
+Add completed checkbox -->
 
-Remove all commented out code. Search every file
+<!-- Remove all commented out code. Search every file -->
 
 Deploy app
 

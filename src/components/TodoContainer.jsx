@@ -20,9 +20,6 @@ export default function TodoContainer({ tableName, onRemoveList }) {
     setCurrentList(listName);
   }, [listName]);
 
-  // const { currentTodoListTitle } = useParams();
-  // console.log(currentTodoListTitle);
-
   const filterTodosForCurrentList = (todos, currentList) =>
     todos.filter((todo) => todo.todoListName === currentList && todo.title);
 
@@ -196,4 +193,5 @@ export default function TodoContainer({ tableName, onRemoveList }) {
 
 TodoContainer.propTypes = {
   tableName: PropTypes.string,
+  onRemoveList: PropTypes.func,
 };

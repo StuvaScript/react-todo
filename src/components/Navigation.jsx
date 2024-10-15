@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./Navigation.module.css";
+import PropTypes from "prop-types";
 
 export default function Navigation({ allTodoLists }) {
   return (
@@ -18,3 +19,7 @@ export default function Navigation({ allTodoLists }) {
     </nav>
   );
 }
+
+Navigation.propTypes = {
+  allTodoLists: PropTypes.arrayOf(PropTypes.string),
+};

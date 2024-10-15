@@ -88,6 +88,7 @@ TodoList.propTypes = {
       id: PropTypes.string,
       title: PropTypes.string,
       createdTime: PropTypes.string,
+      todoListName: PropTypes.string,
     })
   ),
   onRemoveTodo: PropTypes.func,

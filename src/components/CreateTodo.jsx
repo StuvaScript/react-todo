@@ -2,10 +2,8 @@ import { useState } from "react";
 import AddIcon from "../assets/icons/add-icon.svg?react";
 import { useNavigate } from "react-router-dom";
 import InputWithLabel from "./InputWithLabel";
-// import styles from "./AddTodoForm.module.css";
+import PropTypes from "prop-types";
 import styles from "./CreateTodo.module.css";
-
-// todo ``** Need PropTypes **``
 
 export default function CreateTodo({ onAddTodoList, allTodoLists }) {
   const [todoListTitle, setTodoListTitle] = useState("");
@@ -54,7 +52,14 @@ export default function CreateTodo({ onAddTodoList, allTodoLists }) {
           <AddIcon height="20px" width="20px" />
         </button>
       </form>
-      {duplicateWarning && <span>Name already taken</span>}
+      {duplicateWarning && (
+        <span className={styles.warning}>Name already taken</span>
+      )}
     </div>
   );
 }
+
+CreateTodo.propTypes = {
+  allTodoLists: PropTypes.arrayOf(PropTypes.string),
+  onAddTodoList: PropTypes.func,
+};

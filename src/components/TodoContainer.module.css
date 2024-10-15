@@ -1,4 +1,6 @@
 .todoContainer {
+  width: 100vw;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;

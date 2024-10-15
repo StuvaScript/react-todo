@@ -4,6 +4,8 @@
 }
 
 :root {
+  /** ``** Just holding on to these colors just in case I want to revert back to this theme from the Halloween color theme */
+
   /* --main-color: #ffffff;
   --secondary-color: #70fafa;
   --accent-color: #ffd5c2;
@@ -40,16 +42,11 @@ body {
   justify-content: center;
 
   gap: 30px;
-
-  /* display: grid;
-  grid-template-rows: repeat(3, auto) 1fr;
-  justify-items: center;
-  gap: 30px; */
 }
 
 h1 {
   padding: 15px;
-  font-size: 5rem;
+  font-size: clamp(1.5rem, 10vw, 5rem);
   text-align: center;
   font-family: handwritten;
   font-weight: 700;

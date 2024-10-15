@@ -83,16 +83,6 @@ const fetchTodoLists = async () => {
     const data = await res.json();
 
     return data;
-    // const todoLists = data.records.map((record) => record.fields.todoListName);
-
-    // const removeDuplicateTodoLists = todoLists.reduce((newArray, todoList) => {
-    //   if (!newArray.includes(todoList)) {
-    //     newArray.push(todoList);
-    //   }
-    //   return newArray;
-    // }, []);
-
-    // return removeDuplicateTodoLists;
   } catch (error) {
     console.log(error.message);
   }
@@ -125,25 +115,14 @@ export default function App() {
   const [allTodoLists, setAllTodoLists] = useState([]);
 
   const addTodoList = async (newTodoListTitle) => {
-    // ``** optimistic rendering **``
     setAllTodoLists([...allTodoLists, newTodoListTitle]);
 
-    // If the response fails, remove the newly added todo
     const res = await createTodoList(newTodoListTitle);
+
     if (!res) {
-      console.log("Didn't work");
-      // removeTodo(newTodo.id);
+      console.log("Cannot add todo list");
       return;
     }
-
-    // const newTodoObject = {
-    //   ...newTodo,
-    //   id: res.id, // This is the updated ID. Our initial temporary ID was created in the AddTodoForm.jsx file
-    // };
-
-    // setTodoList([...todoList, newTodoObject]);
-
-    // todo ``** Need to use Navigate() hook here to jump straight to the new todo list. If the POST response fails, we can Navigate() back to the CreateTodo file **``
   };
 
   const handleRemoveList = async (currentList) => {
@@ -152,7 +131,8 @@ export default function App() {
     const currentRecordsToBeDeleted = data.records.filter(
       (record) => record.fields.todoListName === currentList
     );
-    // ``** The API can only delete 10 records at a time. This breaks the array into lengths that are 10 items long max.
+
+    //* ``** The API can only delete 10 records at a time. This breaks the array into lengths of 10 and deletes them.
     while (currentRecordsToBeDeleted.length > 0) {
       const records = currentRecordsToBeDeleted.splice(0, 10);
       const idString = formatIDsForDeleting(records);
@@ -164,18 +144,6 @@ export default function App() {
       (list) => list.toLowerCase() !== currentList.toLowerCase()
     );
     setAllTodoLists(updatedTodoLists);
-
-    // const oldList = todoList;
-
-    // ``** optimistic rendering **``
-    // const newLIst = todoList.filter((todoItem) => todoItem.id !== id);
-    // setTodoList(newLIst);
-
-    // If the response fails, change the todo list back to the previous list
-    // const deleteRes = await deleteTodo(id);
-    // if (deleteRes === null) {
-    //   setTodoList(oldList);
-    // }
   };
 
   useEffect(() => {

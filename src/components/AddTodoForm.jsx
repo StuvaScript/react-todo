@@ -43,4 +43,5 @@ export default function AddTodoForm({ onAddTodo, currentList }) {
 
 AddTodoForm.propTypes = {
   onAddTodo: PropTypes.func,
+  currentList: PropTypes.string,
 };
