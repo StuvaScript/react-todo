@@ -36,7 +36,7 @@ export default function CreateTodo({ onAddTodoList, allTodoLists }) {
 
   return (
     <div className={styles.newTodoContainer}>
-      <h1>New Todo List</h1>
+      <h1>Todo App</h1>
 
       <form onSubmit={handleAddTodoList} className={styles.form}>
         <InputWithLabel
